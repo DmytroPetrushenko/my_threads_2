@@ -1,10 +1,16 @@
 package com.knubisoft.thread.impl;
 
-import com.knubisoft.thread.MyThreadSynchronousQueue;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 
-public class MyThreadB extends Thread implements MyThreadSynchronousQueue {
-    private final String event = "PING";
+import java.util.concurrent.SynchronousQueue;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class MyThread extends Thread {
+    private static final SynchronousQueue<String> queue = new SynchronousQueue<>();
+    private String event;
 
     @SneakyThrows
     @Override
@@ -16,7 +22,6 @@ public class MyThreadB extends Thread implements MyThreadSynchronousQueue {
         }
     }
 
-    @Override
     @SneakyThrows
     public void sendMessage() {
         queue.put(event);

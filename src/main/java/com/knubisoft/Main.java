@@ -1,15 +1,16 @@
 package com.knubisoft;
 
-import com.knubisoft.thread.impl.MyThreadA;
-import com.knubisoft.thread.impl.MyThreadB;
+import com.knubisoft.thread.impl.MyThread;
 import lombok.SneakyThrows;
 
 public class Main {
 
     @SneakyThrows
     public static void main(String[] args) {
-        MyThreadA threadA = new MyThreadA();
-        MyThreadB threadB = new MyThreadB();
+        MyThread threadA = new MyThread();
+        MyThread threadB = new MyThread();
+        threadA.setEvent("PONG");
+        threadB.setEvent("PING");
         threadA.start();
         threadB.start();
         Thread.sleep(500);
