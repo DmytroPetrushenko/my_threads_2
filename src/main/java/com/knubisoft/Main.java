@@ -1,5 +1,17 @@
-package com.knubisoft;public class Main {
+package com.knubisoft;
+
+import com.knubisoft.thread.MyThread;
+import lombok.SneakyThrows;
+
+public class Main {
+
+    @SneakyThrows
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        MyThread myThreadOne = new MyThread();
+        MyThread myThreadTwo = new MyThread();
+
+        myThreadOne.start();
+        myThreadTwo.start();
+        myThreadOne.setInput("Let's go!");
     }
 }
