@@ -1,29 +1,36 @@
 package com.knubisoft.thread.impl;
 
+import java.util.concurrent.SynchronousQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 
-import java.util.concurrent.SynchronousQueue;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MyThread extends Thread {
-    private static final SynchronousQueue<String> queue = new SynchronousQueue<>();
+    private final SynchronousQueue<String> in;
+    private final SynchronousQueue<String> out;
     private String event;
+
+    public MyThread(SynchronousQueue<String> in, SynchronousQueue<String> out, String event) {
+        this.in = in;
+        this.out = out;
+        this.event = event;
+
+    }
 
     @SneakyThrows
     @Override
     public void run() {
         while (true) {
-            String take = queue.take();
+            String take = in.take();
             System.out.println(take);
-            queue.put(event);
+            out.put(event);
         }
     }
 
     @SneakyThrows
     public void sendMessage() {
-        queue.put(event);
+        out.put(event);
     }
 }
